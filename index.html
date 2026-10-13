@@ -212,14 +212,7 @@ a[href^="tel:"] { color: inherit; }
 .epb_product_body .article_1 .list_1_wrap .list_txt { padding: 0.5rem; }
 .epb_product_body .article .article_txt { font-size: 22px; margin-top: 1rem; }
 
-/* カタログ帯（型F） */
-.last_btn_wrap { padding: 40px; }
-.last_btn_wrap .last_btn_wrap_inner { background: #FF983F; text-align: center; padding: 80px 0; margin-top: 100px; }
-.page_color_o .last_btn_wrap .last_btn_wrap_inner { background: #FF983F; }
-@media only screen and (max-width: 768px) {
-  .last_btn_wrap { padding: 10px; }
-  .last_btn_wrap .last_btn_wrap_inner { margin-top: 10vw; padding: 15vw 0; }
-}
+/* カタログ帯（型F）は v1.1 で S12 をフォームに置き換えたため転記を削除 */
 
 /* 関連トピックス（型G） */
 .page_connected_section { border: 1px solid transparent; }
@@ -255,7 +248,7 @@ a[href^="tel:"] { color: inherit; }
    ========================================================= */
 /* 試作版バッジ（本番では削除） */
 .draft-badge { position: fixed; top: 8px; right: 8px; z-index: 1000; background: #121946; color: #fff; font-size: 12px; font-weight: 500; padding: 4px 10px; border-radius: 100px; pointer-events: none; }
-@media only screen and (max-width: 768px) { .draft-badge { top: auto; bottom: 12px; right: 12px; } }
+@media only screen and (max-width: 768px) { .draft-badge { top: auto; bottom: 96px; left: 8px; right: auto; } }
 
 /* 画像フォールバック（画像が無くても枠が残る） */
 .k119_imgbox { position: relative; background-color: #F4F4F4; border-radius: 20px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
@@ -413,11 +406,34 @@ a[href^="tel:"] { color: inherit; }
 .page_key-l119 .k119_notice li + li { margin-top: 0.6em; }
 @media only screen and (max-width: 768px) { .page_key-l119 .k119_notice { font-size: 18px; } }
 
-/* S12 ボタン2つ */
-.page_key-l119 .last_btn_wrap_inner { display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; }
+/* S12 ご注文・お見積りフォーム（v1.1） */
+#order { scroll-margin-top: 80px; }
+.k119_order .k119_order_lead { text-align: center; font-size: 20px; line-height: 1.7; margin: 0 auto 40px; }
+.k119_form_wrap { width: 100%; max-width: 760px; margin: 0 auto; }
+.k119_form_wrap iframe { width: 100%; height: 1400px; border: 0; margin: 0 auto; }
+.k119_form_wrap iframe[hidden], .k119_form_notice[hidden], .k119_form_alt[hidden] { display: none; }
+.k119_form_notice { background: #F4F4F4; border-radius: 20px; padding: 2em; text-align: center; color: #656565; font-size: 16px; line-height: 1.7; }
+.k119_form_alt, .k119_order_catalog { text-align: center; font-size: 16px; margin-top: 1em; }
+.k119_form_alt a, .k119_order_catalog a { color: #d74e19; text-decoration: underline; }
 @media only screen and (max-width: 768px) {
-  .page_key-l119 .last_btn_wrap_inner { padding-left: 5vw; padding-right: 5vw; }
-  .page_key-l119 .last_btn_wrap_inner .btn_size_m { width: 100%; }
+  .k119_order .k119_order_lead { font-size: 18px; margin-bottom: 24px; }
+  .k119_form_wrap iframe { height: 1600px; }
+}
+
+/* 追従CTA（v1.1）。初期表示は「表示」、JSが MV と #order を検知して隠す */
+.k119_sticky_cta { position: fixed; right: 24px; bottom: 24px; z-index: 900; transition: opacity .25s, transform .25s; }
+.k119_sticky_btn { display: inline-flex; align-items: center; justify-content: center; min-height: 56px; padding: 1em 2em; border-radius: 100px; background: #d74e19; color: #fff; font-size: 18px; font-weight: bold; text-decoration: none; box-shadow: 0 8px 24px rgba(0,0,0,.2); }
+.k119_sticky_btn:hover { background: #b53f12; }
+.k119_sticky_btn:focus-visible { outline: 2px solid #121946; outline-offset: 2px; }
+.k119_sticky_cta.is-hidden { opacity: 0; pointer-events: none; transform: translateY(20px); }
+html { scroll-behavior: smooth; }
+@media only screen and (max-width: 768px) {
+  .k119_sticky_cta { left: 0; right: 0; bottom: 0; padding: 10px 5vw calc(10px + env(safe-area-inset-bottom)); background: rgba(255,255,255,.95); border-top: 1px solid #EAEAEA; }
+  .k119_sticky_btn { display: flex; width: 100%; height: 52px; min-height: 52px; padding: 0 1em; }
+  body { padding-bottom: 84px; }
+}
+
+@media only screen and (max-width: 768px) {
   .page_key-l119 .k119_btn_area { margin: 0 10px; }
   .page_key-l119 .k119_btn_area .btn_size_m { width: 100%; }
 }
@@ -435,6 +451,10 @@ a[href^="tel:"] { color: inherit; }
 .breadcrumb_list > .item { align-items: center; }
 .k119_table_scroll:focus-visible { outline: 2px solid #FF983F; outline-offset: 2px; }
 </style>
+<script>
+// Google Forms の URL（「送信」→「<>」埋め込みタブの src、または通常の viewform URL）をここに貼る
+const GOOGLE_FORM_URL = "";
+</script>
 </head>
 <body class="body">
 <!-- 試作版 v1（2026-10-13）。公開前ゲート: 1 品番確定（L119/L119S） 2 比較表の掲載可否 3 画像・PDFの転用許諾 4 統計の原本確認 5 CTA案A/Bの採否 -->
@@ -568,7 +588,7 @@ a[href^="tel:"] { color: inherit; }
 
 <!-- CTA追加案A（採否未決。不要なら削除） -->
 <div class="k119_btn_area">
-  <a href="https://www.3benefits.jp/inquiry/" class="btn_size_m btn_w_bd_o"><span>お問い合わせ・お見積り</span></a>
+  <a href="#order" class="btn_size_m btn_w_bd_o"><span>ご注文・お見積りはこちら</span></a>
 </div>
 <!-- /CTA追加案A -->
 
@@ -706,7 +726,7 @@ a[href^="tel:"] { color: inherit; }
 
 <!-- CTA追加案B（採否未決。不要なら削除） -->
 <div class="k119_btn_area">
-  <a href="https://www.3benefits.jp/inquiry/" class="btn_size_m btn_w_bd_o"><span>お問い合わせ・お見積り</span></a>
+  <a href="#order" class="btn_size_m btn_w_bd_o"><span>ご注文・お見積りはこちら</span></a>
 </div>
 <!-- /CTA追加案B -->
 
@@ -863,7 +883,7 @@ a[href^="tel:"] { color: inherit; }
     <p>設置場所の数、置く機器の種類と台数、使用期限管理のご希望。</p>
   </div>
   <div class="k119_center" style="margin-top:40px;">
-    <a href="https://www.3benefits.jp/inquiry/" class="btn_size_m btn_w_bd_o"><span>お問い合わせ・お見積り</span></a>
+    <a href="#order" class="btn_size_m btn_w_bd_o"><span>ご注文・お見積りはこちら</span></a>
   </div>
   </div>
 </div>
@@ -918,14 +938,25 @@ a[href^="tel:"] { color: inherit; }
 </div>
 </section>
 
-<!-- S12 カタログDL＋お問い合わせ（型F） -->
-<div class="last_btn_wrap">
-  <div class="last_btn_wrap_inner round20">
-    <!-- カタログPDFの掲載許諾後にURLを設定 -->
-    <a href="#" class="btn_size_m btn_w_bd_o"><span>カタログダウンロード</span></a>
-    <a href="https://www.3benefits.jp/inquiry/" class="btn_size_m btn_w_bd_o"><span>お問い合わせ・お見積り</span></a>
+<!-- S12 ご注文・お見積りフォーム（v1.1。旧: カタログDL＋お問い合わせ（型F）のオレンジ帯） -->
+<section id="order" class="k119_order sec_round_bg_w">
+<div class="inner">
+  <h2 class="ttl_type_04">ご注文・お見積りフォーム</h2>
+  <p class="k119_order_lead">設置場所と本数をご記入ください。内容を確認のうえ、お見積りと納期をご連絡します。</p>
+  <div class="k119_form_wrap" id="k119FormWrap">
+    <!-- iframe の高さは PC 1400px／SP 1600px の仮値。Google Forms は高さの自動調整ができないため、フォーム作成後に実測して CSS（.k119_form_wrap iframe）を調整する -->
+    <iframe id="k119FormFrame" title="ご注文・お見積りフォーム" loading="lazy" hidden></iframe>
+    <div class="k119_form_notice" id="k119FormNotice">
+      <p>Google Forms のURLが未設定です。index.html 冒頭の GOOGLE_FORM_URL に貼り付けてください。</p>
+    </div>
   </div>
+  <p class="k119_form_alt" id="k119FormAlt" hidden><a href="#" id="k119FormAltLink" target="_blank" rel="noopener">フォームが表示されない場合は別ウィンドウで開く</a></p>
+  <p class="k119_order_catalog">
+    <!-- カタログPDFの掲載許諾後にURLを設定 -->
+    <a href="#">カタログダウンロード（PDF）</a>
+  </p>
 </div>
+</section>
 
 <!-- S13 関連トピックス（型G） -->
 <section class="page_connected_section">
@@ -998,6 +1029,11 @@ a[href^="tel:"] { color: inherit; }
   </div>
 </footer>
 
+<!-- 追従CTA（v1.1）。押すと #order へスクロール。MV と #order が見えている間は非表示 -->
+<div class="k119_sticky_cta" id="stickyCta">
+  <a href="#order" class="k119_sticky_btn">ご注文・お見積りはこちら</a>
+</div>
+
 <script>
 /* 画像が読めない場合に枠と代替表示を残す（試作用の最小限のJS） */
 (function () {
@@ -1007,6 +1043,46 @@ a[href^="tel:"] { color: inherit; }
     var mark = function () { if (box) { box.classList.add('is-noimg'); } };
     if (img.complete && img.naturalWidth === 0) { mark(); } else { img.addEventListener('error', mark); }
   });
+})();
+
+/* S12 Google Forms 埋め込み（v1.1）。GOOGLE_FORM_URL は head の script で定義 */
+(function () {
+  var url = (typeof GOOGLE_FORM_URL === 'string') ? GOOGLE_FORM_URL.trim() : '';
+  var frame = document.getElementById('k119FormFrame');
+  var notice = document.getElementById('k119FormNotice');
+  var alt = document.getElementById('k119FormAlt');
+  var altLink = document.getElementById('k119FormAltLink');
+  if (!frame || !url) { return; } /* 未設定時は案内ボックスを表示したまま */
+  var src = url;
+  if (!/[?&]embedded=true(&|#|$)/.test(src)) {
+    var hashIdx = src.indexOf('#');
+    var hash = hashIdx >= 0 ? src.slice(hashIdx) : '';
+    var base = hashIdx >= 0 ? src.slice(0, hashIdx) : src;
+    src = base + (base.indexOf('?') >= 0 ? '&' : '?') + 'embedded=true' + hash;
+  }
+  frame.src = src;
+  frame.hidden = false;
+  if (notice) { notice.hidden = true; }
+  if (altLink) { altLink.href = url; }
+  if (alt) { alt.hidden = false; }
+})();
+
+/* 追従CTA（v1.1）。MV（.page_mv_l）か #order が画面に入っている間は隠す */
+(function () {
+  var cta = document.getElementById('stickyCta');
+  if (!cta || !('IntersectionObserver' in window)) { return; }
+  var link = cta.querySelector('a');
+  var targets = [document.querySelector('.page_mv_l'), document.getElementById('order')].filter(Boolean);
+  var visible = new Map();
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { visible.set(e.target, e.isIntersecting); });
+    var anyVisible = false;
+    visible.forEach(function (v) { if (v) { anyVisible = true; } });
+    cta.classList.toggle('is-hidden', anyVisible);
+    if (link) { link.tabIndex = anyVisible ? -1 : 0; }
+    cta.setAttribute('aria-hidden', anyVisible ? 'true' : 'false');
+  });
+  targets.forEach(function (t) { visible.set(t, false); io.observe(t); });
 })();
 </script>
 </body>
